@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="10 minutes" debug="false"><!-- 支持日志级别热修改 -->
+
+	<property name="PATTERN" value="[%d{yyyy-MM-dd HH:mm:ss SSS}] [%X] [%-5p] %logger{0}.%M\\(%L\\) - %msg%n" />
+
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>${PATTERN}</pattern>
+		</encoder>
+	</appender>
+
+	<!-- SQL日志 -->
+	<logger name="net.blogfy.mapper" level="debug" />
+
+	<springProfile name="stg,prd">
+		<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+			<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+				<fileNamePattern>log/springboot-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+				<MaxHistory>100</MaxHistory>
+				<maxFileSize>50MB</maxFileSize>
+			</rollingPolicy>
+
+			<layout class="ch.qos.logback.classic.PatternLayout">
+				<pattern>${PATTERN}</pattern>
+			</layout>
+		</appender>
+	</springProfile>
+
+	<!-- 注意：测试&生产环境日志打印到FILE中，开发环境方便在IDE中查看打印到CONSOLE。 -->
+	<root level="info">
+		<springProfile name="dev">
+			<appender-ref ref="CONSOLE" />
+		</springProfile>
+		<springProfile name="stg,prd">
+			<appender-ref ref="FILE" />
+		</springProfile>
+	</root>
+</configuration>

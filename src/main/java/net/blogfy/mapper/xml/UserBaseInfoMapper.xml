@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.blogfy.mapper.UserBaseInfoMapper" >
+
+    <select id="existsEmail" resultType="int">
+        select count(1) from t_user where email = #{email}
+    </select>
+
+    <select id="getUser" resultType="net.blogfy.entity.UserBaseInfo">
+        select * from t_user where email = #{email} and pwd = #{pwd}
+    </select>
+
+    <select id="existsUserId" resultType="int">
+        select count(1) from t_user where user_id = #{userId}
+    </select>
+
+</mapper>

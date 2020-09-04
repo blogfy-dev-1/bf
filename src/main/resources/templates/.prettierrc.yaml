@@ -1,0 +1,9 @@
+# Prettier配置
+
+useTabs: true
+tabWidth: 4
+printWidth: 300
+# 分号
+semi: true
+# 单引号
+singleQuote: true

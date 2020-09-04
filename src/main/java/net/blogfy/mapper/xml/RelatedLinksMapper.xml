@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.blogfy.mapper.RelatedLinksMapper" >
+
+    <select id="countUserRelatedLinks" resultType="int">
+        select count(1) from t_related_links where user_id = #{userId}
+    </select>
+
+    <select id="maxRelatedLinksOrder" resultType="double">
+        select max(order) from t_related_links where user_id = #{userId}
+    </select>
+
+    <select id="queryList" resultType="net.blogfy.entity.RelatedLinks">
+        select * from t_related_links where user_id = #{userId} order by order_num asc
+    </select>
+</mapper>

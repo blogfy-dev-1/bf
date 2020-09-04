@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.blogfy.mapper.UserFollowsMapper" >
+
+    <select id="queryFollowsList" resultType="net.blogfy.dto.user.follow.UserFollowsDTO">
+        select
+            f.f_user_id as user_id,
+            tb.nick_name,
+            tb.sex,
+            tb.blog_title,
+            tb.head_img_url_max,
+            tb.head_img_url_medium,
+            tb.head_img_url_min,
+            tp.total_score,
+            tp.view_num,
+            tp.agree_num,
+            tp.favorite_num,
+            tp.repeat_num,
+            tp.discuss_num
+        from
+        (
+            <!-- 我关注的人 -->
+            <if test="req.type == 1">
+                select follower_to_user_id as f_user_id from t_user_follows where follower_from_user_id = #{req.userId}
+            </if>
+            <!-- 关注我的人（粉丝） -->
+            <if test="req.type == 2">
+                select follower_from_user_id as f_user_id from t_user_follows where follower_to_user_id = #{req.userId}
+            </if>
+        ) f
+        left join t_user_base_info tb on f.f_user_id = tb.user_id
+        left join t_user_prop_info tp on f.f_user_id = tp.user_id
+    </select>
+
+    <select id="getUserFollow" resultType="net.blogfy.entity.UserFollows">
+        select * from t_user_follows where follower_from_user_id = #{followerFromUserId} and follower_to_user_id = #{followerToUserId}
+    </select>
+
+    <select id="queryMyFollowsUserIdList" resultType="int">
+        select follower_to_user_id from t_user_follows where follower_from_user_id = #{followerFromUserId}
+    </select>
+
+</mapper>

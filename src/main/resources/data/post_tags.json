@@ -1,0 +1,428 @@
+[
+  {
+    "code": "100",
+    "name": "UI",
+    "children": []
+  },
+  {
+    "code": "110",
+    "name": "前端",
+    "children": [
+      {
+        "code": "110100",
+        "name": "CSS",
+        "children": [
+          {
+            "code": "110100100",
+            "name": "CSS3",
+            "children": []
+          }
+        ]
+      },
+      {
+        "code": "110110",
+        "name": "JavaScript",
+        "children": [
+          {
+            "code": "110110100",
+            "name": "ECMAScript",
+            "children": [
+              {
+                "code": "110110100100",
+                "name": "ES5",
+                "children": []
+              },
+              {
+                "code": "110110100110",
+                "name": "ES6",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "code": "110120",
+        "name": "HTML",
+        "children": [
+          {
+            "code": "110120100",
+            "name": "H5",
+            "children": [
+              {
+                "code": "110120100100",
+                "name": "WebSocket",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "code": "110130",
+        "name": "VUE",
+        "children": [
+        ]
+      },
+      {
+        "code": "110140",
+        "name": "React",
+        "children": [
+        ]
+      },
+      {
+        "code": "110150",
+        "name": "Angular",
+        "children": [
+        ]
+      },
+      {
+        "code": "110160",
+        "name": "Webpack",
+        "children": [
+        ]
+      },
+      {
+        "code": "110170",
+        "name": "jQuery",
+        "children": [
+        ]
+      },
+      {
+        "code": "110180",
+        "name": "Zepto",
+        "children": [
+        ]
+      },
+      {
+        "code": "110190",
+        "name": "Bootstrap",
+        "children": [
+        ]
+      },
+      {
+        "code": "110200",
+        "name": "ajax",
+        "children": [
+        ]
+      }
+    ]
+  },
+  {
+    "code": "120",
+    "name": "后端",
+    "children": [
+      {
+        "code": "120100",
+        "name": "C语言",
+        "children": [
+        ]
+      },
+      {
+        "code": "120110",
+        "name": "C++",
+        "children": [
+          {
+            "code": "120110100",
+            "name": "C++11",
+            "children": [
+            ]
+          }
+        ]
+      },
+      {
+        "code": "120120",
+        "name": "Java",
+        "children": [
+          {
+            "code": "120120100",
+            "name": "JDK",
+            "children": [
+            ]
+          },
+          {
+            "code": "120120110",
+            "name": "JDK1.6",
+            "children": [
+            ]
+          },
+          {
+            "code": "120120120",
+            "name": "JDK1.8",
+            "children": [
+            ]
+          },
+          {
+            "code": "120120130",
+            "name": "jre",
+            "children": [
+            ]
+          },
+          {
+            "code": "120120140",
+            "name": "JavaWeb",
+            "children": [
+              {
+                "code": "120120140100",
+                "name": "JSP",
+                "children": [
+                ]
+              },
+              {
+                "code": "120120140110",
+                "name": "Servlet",
+                "children": [
+                ]
+              },
+			  {
+                "code": "120120140120",
+                "name": "Servlet2.5",
+                "children": [
+                ]
+              },
+			  {
+                "code": "120120140130",
+                "name": "Servlet3.0",
+                "children": [
+                ]
+              }
+            ]
+          },
+          {
+            "code": "120120140",
+            "name": "FreeMarker",
+            "children": [
+            ]
+          },
+          {
+            "code": "120120150",
+            "name": "Velocity",
+            "children": [
+            ]
+          },
+          {
+            "code": "120120160",
+            "name": "Spring",
+            "children": [
+              {
+                "code": "120120160100",
+                "name": "SpringMVC",
+                "children": [
+                ]
+              }
+            ]
+          },
+          {
+            "code": "120120170",
+            "name": "SpringBoot",
+            "children": [
+            ]
+          },
+          {
+            "code": "120120180",
+            "name": "SpringCloud",
+            "children": [
+            ]
+          }
+        ]
+      },
+      {
+        "code": "120130",
+        "name": "GO语言",
+        "children": [
+        ]
+      },
+      {
+        "code": "120140",
+        "name": "PHP",
+        "children": [
+        ]
+      },
+      {
+        "code": "120150",
+        "name": "VB",
+        "children": [
+        ]
+      },
+      {
+        "code": "120160",
+        "name": "Python",
+        "children": [
+        ]
+      },
+      {
+        "code": "120170",
+        "name": "Ruby",
+        "children": [
+        ]
+      },
+      {
+        "code": "120180",
+        "name": "Lua",
+        "children": [
+        ]
+      },
+      {
+        "code": "120190",
+        "name": "Lambda",
+        "children": [
+        ]
+      }
+    ]
+  },
+  {
+    "code": "130",
+    "name": "数据库",
+    "children": [
+      {
+        "code": "130100",
+        "name": "MySQL",
+        "children": [
+        ]
+      },
+      {
+        "code": "130110",
+        "name": "Oracle",
+        "children": [
+          {
+            "code": "130110100",
+            "name": "PL/SQL",
+            "children": [
+            ]
+          }
+        ]
+      },
+      {
+        "code": "130120",
+        "name": "PostgreSQL",
+        "children": [
+        ]
+      },
+      {
+        "code": "130130",
+        "name": "SQL Server",
+        "children": [
+        ]
+      },
+      {
+        "code": "130140",
+        "name": "DB2",
+        "children": [
+        ]
+      },
+      {
+        "code": "130140",
+        "name": "Access数据库",
+        "children": [
+        ]
+      },
+      {
+        "code": "130150",
+        "name": "SQLLite",
+        "children": [
+        ]
+      },
+      {
+        "code": "130160",
+        "name": "H2",
+        "children": [
+        ]
+      },
+      {
+        "code": "130170",
+        "name": "MongoDB",
+        "children": [
+        ]
+      },
+      {
+        "code": "130180",
+        "name": "Redis",
+        "children": [
+        ]
+      },
+      {
+        "code": "130190",
+        "name": "MemoryCache",
+        "children": [
+        ]
+      },
+      {
+        "code": "130200",
+        "name": "Hive",
+        "children": [
+        ]
+      },
+      {
+        "code": "130300",
+        "name": "索引",
+        "children": [
+        ]
+      },
+      {
+        "code": "130310",
+        "name": "存储引擎",
+        "children": [
+          {
+            "code": "130310100",
+            "name": "InnoDB",
+            "children": [
+            ]
+          },
+          {
+            "code": "130310120",
+            "name": "MyISAM",
+            "children": [
+            ]
+          },
+          {
+            "code": "130310130",
+            "name": "MEMORY",
+            "children": [
+            ]
+          }
+        ]
+      },
+      {
+        "code": "130320",
+        "name": "存储过程",
+        "children": [
+        ]
+      }
+    ]
+  },
+  {
+    "code": "140",
+    "name": "中间件",
+    "children": []
+  },
+  {
+    "code": "150",
+    "name": "网络",
+    "children": []
+  },
+  {
+    "code": "160",
+    "name": "安全",
+    "children": []
+  },
+  {
+    "code": "170",
+    "name": "硬件",
+    "children": []
+  },
+  {
+    "code": "180",
+    "name": "算法",
+    "children": []
+  },
+  {
+    "code": "190",
+    "name": "数据结构",
+    "children": []
+  },
+  {
+    "code": "200",
+    "name": "DevOps",
+    "children": []
+  }
+]
