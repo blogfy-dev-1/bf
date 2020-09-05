@@ -2,22 +2,18 @@ package net.blogfy.service.impl;
 
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 
+import net.blogfy.config.GithubProperties;
 import net.blogfy.dto.relatedlinks.AddRelatedLinksReq;
 import net.blogfy.dto.relatedlinks.DelRelatedLinksReq;
 import net.blogfy.dto.relatedlinks.MoveRelatedLinksReq;
-import net.blogfy.dto.user.FinishRegisterReq;
 import net.blogfy.dto.user.UpdateUserBaseInfoReq;
-import net.blogfy.dto.user.UserLoginReq;
 import net.blogfy.dto.user.follow.UserFollowersReq;
 import net.blogfy.dto.user.follow.UserFollowsDTO;
 import net.blogfy.entity.RelatedLinks;
@@ -27,9 +23,9 @@ import net.blogfy.exception.BlogfyException;
 import net.blogfy.mapper.RelatedLinksMapper;
 import net.blogfy.mapper.UserBaseInfoMapper;
 import net.blogfy.mapper.UserFollowsMapper;
+import net.blogfy.mapper.UserGithubInfoMapper;
 import net.blogfy.service.BasicService;
 import net.blogfy.service.UserService;
-import net.blogfy.util.AESCoder;
 import net.blogfy.util.IdUtils;
 import net.blogfy.util.MyStringUtils;
 import net.blogfy.util.WebUtils;
@@ -45,35 +41,10 @@ public class UserServiceImpl extends BasicService implements UserService {
 	private RelatedLinksMapper relatedLinksMapper;
 	@Resource
 	private UserFollowsMapper userFollowsMapper;
-	
-	@Override
-	public UserBaseInfo login(UserLoginReq req) {
-		String email = AESCoder.encrypt(req.getEmail()); // 邮箱AES加密
-		String pwd = AESCoder.encrypt(DigestUtils.md5Hex(req.getPwd())); // MD5再AES加密
-		
-		UserBaseInfo user = userBaseInfoMapper.getUser(email, pwd);
-		if (user == null) {
-			throw new BlogfyException("账号或密码不正确");
-		}
-		return user;
-	}
-	
-	@Override
-	public void register(String email) {
-		int countEmail = userBaseInfoMapper.existsEmail(email);
-		if (countEmail != 0) {
-			throw new BlogfyException("该邮箱已经被注册了。");
-		}
-		
-		// 保存验证码
-		String validateCode = IdUtils.newRandomStr(16);
-		logger.info("User register validate code: {}", validateCode);
-		stringRedisTemplate.opsForValue().set("user-register-code-" + email, validateCode, 2, TimeUnit.HOURS);
-		
-		// 发送邮件
-//		MimeMessage mimeMessage = javaMailSender.createMimeMessage();
-//		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
-	}
+	@Resource
+	private UserGithubInfoMapper userGithubInfoMapper;
+	@Resource
+	private GithubProperties githubProperties;
 	
 	private int newUserId() {
 		int userId;
@@ -87,39 +58,11 @@ public class UserServiceImpl extends BasicService implements UserService {
 	}
 	
 	@Override
-	public boolean validateEmailCode(String email, String emailValidateCode) {
-		String validateCode = stringRedisTemplate.opsForValue().get("user-register-code-" + email);
-		if (validateCode == null || !StringUtils.equals(emailValidateCode, validateCode)) {
-			return false;
-		}
-		return true;
-//
-//		// 其它操作
-//
-//		return newUser.getUserId();
-	}
-	
-	@Override
 	public void updateUserBaseInfo(UpdateUserBaseInfoReq req) {
 		UserBaseInfo recordUser = new UserBaseInfo();
 		recordUser.setUserId(WebUtils.getLoginUserId(true));
 		recordUser.setNickName(req.getNickName());
 		userBaseInfoMapper.updateById(recordUser);
-	}
-	
-	@Override
-	public void finishRegister(FinishRegisterReq req) {
-		boolean b = validateEmailCode(req.getEmail(), req.getCode());
-		if (!b) {
-			throw new BlogfyException("验证码已过期");
-		}
-		
-		// 创建用户
-		UserBaseInfo newUser = new UserBaseInfo();
-		newUser.setUserId(newUserId());
-		newUser.setEmail(AESCoder.encrypt(req.getEmail())); // 邮箱AES加密
-		newUser.setPwd(AESCoder.encrypt(DigestUtils.md5Hex(req.getPwd()))); // MD5再AES加密
-		userBaseInfoMapper.insert(newUser);
 	}
 	
 	@Override
@@ -209,5 +152,12 @@ public class UserServiceImpl extends BasicService implements UserService {
 		}
 	}
 	
+	@Override
+	public void githubLoginCallback(String code) {
+		// 获取access_token
+		
+		// 获取用户信息
+		
+	}
 	
 }

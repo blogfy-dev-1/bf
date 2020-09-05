@@ -1,14 +1,12 @@
 package net.blogfy.web;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import net.blogfy.config.GithubProperties;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,16 +16,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 
+import net.blogfy.config.GithubProperties;
 import net.blogfy.dto.relatedlinks.AddRelatedLinksReq;
 import net.blogfy.dto.relatedlinks.DelRelatedLinksReq;
 import net.blogfy.dto.relatedlinks.MoveRelatedLinksReq;
-import net.blogfy.dto.user.FinishRegisterReq;
 import net.blogfy.dto.user.UpdateUserBaseInfoReq;
-import net.blogfy.dto.user.UserLoginReq;
 import net.blogfy.dto.user.follow.UserFollowersReq;
 import net.blogfy.dto.user.follow.UserFollowsDTO;
 import net.blogfy.entity.RelatedLinks;
-import net.blogfy.entity.UserBaseInfo;
+import net.blogfy.exception.BlogfyException;
 import net.blogfy.mapper.RelatedLinksMapper;
 import net.blogfy.service.UserService;
 import net.blogfy.util.WebUtils;
@@ -61,41 +58,17 @@ public class UserController extends BasicController {
 	@RequestMapping(value = "/user/github/goLogin", method = RequestMethod.GET)
 	public String githubGoLogin() {
 		String path = githubProperties.getOauthUrl() + "?client_id=" + githubProperties.getClientId();
+		logger.info("github go login, redirect to: {}", path);
 		return "redirect:" + path;
 	}
 
 	@RequestMapping(value = "/user/github/loginCallback", method = RequestMethod.GET)
 	public String githubLoginCallback(HttpServletRequest request, String code) {
-		return null;
-	}
-	
-	@RequestMapping(value = "/user/login", method = RequestMethod.GET)
-	@ResponseBody
-	public Result<Object> login(HttpServletRequest request, HttpServletResponse response, @Valid UserLoginReq req) {
-		UserBaseInfo loginUser = userService.login(req);
-		WebUtils.setLoginUserId(request, response, loginUser.getUserId());
-		return Result.respSuccess();
-	}
-	
-	@RequestMapping(value = "/user/register", method = RequestMethod.POST)
-	@ResponseBody
-	public Result<Object> register(String email) {
-		userService.register(email);
-		return Result.respSuccess();
-	}
-	
-	// 验证邮箱里的注册码
-	@RequestMapping(value = "/user/validateEmailCode", method = RequestMethod.GET)
-	public String validateEmailCode(HttpServletRequest request, String email, String code) {
-		boolean b = userService.validateEmailCode(email, code);
-		return "user/user_set_pwd";
-	}
-	
-	@RequestMapping(value = "/user/finishRegister", method = RequestMethod.POST)
-	@ResponseBody
-	public Result<Object> finishRegister(@Valid FinishRegisterReq req) {
-		userService.finishRegister(req);
-		return Result.respSuccess();
+		if (StringUtils.isEmpty(code)) {
+			throw new BlogfyException("code is empty.");
+		}
+		userService.githubLoginCallback(code);
+		return "user_home"; // 先返回个人中心，后面应该是返回到登录前页面。
 	}
 	
 	@RequestMapping(value = "/user/updateBaseInfo", method = RequestMethod.GET)
@@ -103,13 +76,6 @@ public class UserController extends BasicController {
 	public Result<Object> updateBaseInfo(HttpServletRequest request, @Valid UpdateUserBaseInfoReq req) {
 		userService.updateUserBaseInfo(req);
 		return Result.respSuccess();
-	}
-	
-	@RequestMapping(value = "/md5", method = RequestMethod.GET)
-	public String md5(HttpServletRequest request, UpdateUserBaseInfoReq req, Model model) {
-		model.addAttribute("msg", "MSG");
-		System.out.println(restTemplate);
-		return "md5";
 	}
 	
 	// 我的友链
@@ -141,7 +107,7 @@ public class UserController extends BasicController {
 	
 	/**
 	 * 查询我关注的或关注我的列表
-	 * @author ZHANGZHENWEI845 2020-8-27
+	 * @author ZHANGZHENWEI 2020-8-27
 	 * @param request
 	 * @param req
 	 * @return
@@ -156,7 +122,7 @@ public class UserController extends BasicController {
 	
 	/**
 	 * 添加或取消关注
-	 * @author ZHANGZHENWEI845 2020-8-27
+	 * @author ZHANGZHENWEI 2020-8-27
 	 * @param followToUserId
 	 * @return
 	 */

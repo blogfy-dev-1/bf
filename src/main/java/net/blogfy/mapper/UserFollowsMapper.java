@@ -19,7 +19,7 @@ public interface UserFollowsMapper extends BaseMapper<UserFollows> {
 	
 	/**
 	 * 查询我关注的用户列表
-	 * @author ZHANGZHENWEI845 2020-8-27
+	 * @author ZHANGZHENWEI 2020-8-27
 	 * @param followerFromUserId
 	 * @return
 	 */
