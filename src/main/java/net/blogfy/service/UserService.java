@@ -27,7 +27,7 @@ public interface UserService {
 	IPage<UserFollowsDTO> queryFollowsList(UserFollowersReq req);
 	
 	void changeFollow(Integer loginUserId, Integer followToUserId);
-	
-	void githubLoginCallback(String code);
+
+	Integer githubLoginCallback(String code) throws Exception;
 	
 }

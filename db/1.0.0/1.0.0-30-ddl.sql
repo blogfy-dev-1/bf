@@ -89,13 +89,13 @@ COMMENT ON COLUMN t_user_prop_info.update_date IS '修改时间';
 CREATE TABLE t_user_github_info
 (
   user_id integer NOT NULL, -- 用户ID
-  github_id integer, -- Github ID
-  login_code character varying(100), -- 登录账号
+  id integer, -- Github ID
+  login character varying(100), -- 登录账号
   avatar_url character varying(100), -- 头像URL
   html_url character varying(100), -- GitHub首页URL
-  nick_name character varying(100), -- 昵称
+  name character varying(100), -- 昵称
   company character varying(100), -- 公司
-  github_location character varying(100), -- 地区
+  location character varying(100), -- 地区
   email character varying(100), -- 邮箱
   access_token character varying(100), -- GitHub access token
   access_token_expire_time timestamp without time zone, -- access token 到期时间
@@ -107,13 +107,13 @@ CREATE TABLE t_user_github_info
 );
 COMMENT ON TABLE t_user_github_info IS '用户Github信息表';
 COMMENT ON COLUMN t_user_github_info.user_id IS '用户ID';
-COMMENT ON COLUMN t_user_github_info.github_id IS 'Github ID';
-COMMENT ON COLUMN t_user_github_info.login_code IS '登录账号';
+COMMENT ON COLUMN t_user_github_info.id IS 'Github ID';
+COMMENT ON COLUMN t_user_github_info.login IS '登录账号';
 COMMENT ON COLUMN t_user_github_info.avatar_url IS '头像URL';
 COMMENT ON COLUMN t_user_github_info.html_url IS 'GitHub首页URL';
-COMMENT ON COLUMN t_user_github_info.nick_name IS '昵称';
+COMMENT ON COLUMN t_user_github_info.name IS '昵称';
 COMMENT ON COLUMN t_user_github_info.company IS '公司';
-COMMENT ON COLUMN t_user_github_info.github_location IS '地区';
+COMMENT ON COLUMN t_user_github_info.location IS '地区';
 COMMENT ON COLUMN t_user_github_info.email IS '邮箱';
 COMMENT ON COLUMN t_user_github_info.access_token IS 'GitHub access token';
 COMMENT ON COLUMN t_user_github_info.access_token_expire_time IS 'access token 到期时间';

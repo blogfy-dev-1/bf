@@ -1,11 +1,11 @@
 package net.blogfy.entity;
 
+import java.util.Date;
+
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.Date;
 
 /**
  * 用户Github信息表，用户授权OAuth登录，通过access_token调用得到。
@@ -22,12 +22,12 @@ public class UserGithubInfo extends BasicTableEntity {
 	/** Github ID */
 	@Getter
 	@Setter
-	private Integer githubId;
+	private Integer id;
 
 	/** 登录账号 */
 	@Getter
 	@Setter
-	private String loginCode;
+	private String login;
 
 	/** 头像URL */
 	@Getter
@@ -42,7 +42,7 @@ public class UserGithubInfo extends BasicTableEntity {
 	/** 昵称 */
 	@Getter
 	@Setter
-	private String nickName;
+	private String name;
 
 	/** 公司 */
 	@Getter
@@ -52,7 +52,7 @@ public class UserGithubInfo extends BasicTableEntity {
 	/** 地区 */
 	@Getter
 	@Setter
-	private String githubLocation;
+	private String location;
 
 	/** 邮箱 */
 	@Getter

@@ -1,5 +1,11 @@
 package net.blogfy.service;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
+import javax.annotation.Resource;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 import net.blogfy.config.BaiduPushProperties;
 import net.blogfy.exception.BlogfyException;
 import net.blogfy.mapper.AppServersMapper;
@@ -9,10 +15,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.client.RestTemplate;
-
-import javax.annotation.Resource;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 
 public abstract class BasicService {
 	
@@ -28,6 +30,8 @@ public abstract class BasicService {
 	protected BaiduPushProperties baiduPushProperties;
 	@Resource
 	private AppServersMapper appServersMapper;
+	@Resource
+	protected ObjectMapper objectMapper;
 	
 	/**
 	 * 获取IP地址

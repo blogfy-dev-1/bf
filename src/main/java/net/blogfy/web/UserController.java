@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
@@ -63,11 +64,16 @@ public class UserController extends BasicController {
 	}
 
 	@RequestMapping(value = "/user/github/loginCallback", method = RequestMethod.GET)
-	public String githubLoginCallback(HttpServletRequest request, String code) {
+	public String githubLoginCallback(HttpServletRequest request, HttpServletResponse response, String code) throws Exception {
+		logger.info("github login callback code: {}", code);
 		if (StringUtils.isEmpty(code)) {
 			throw new BlogfyException("code is empty.");
 		}
-		userService.githubLoginCallback(code);
+		Integer userId = userService.githubLoginCallback(code);
+
+		// 创建登录态
+		WebUtils.setLoginUserId(request, response, userId);
+
 		return "user_home"; // 先返回个人中心，后面应该是返回到登录前页面。
 	}
 	
@@ -80,13 +86,15 @@ public class UserController extends BasicController {
 	
 	// 我的友链
 	@RequestMapping(value = "/user/relatedLinks/list", method = RequestMethod.GET)
+	@ResponseBody
 	public Result<List<RelatedLinks>> myRelatedLinkList(HttpServletRequest request) {
-		List<RelatedLinks> list = relatedLinksMapper.queryList(10000000);
+		List<RelatedLinks> list = relatedLinksMapper.queryList(WebUtils.getLoginUserId(true));
 		return Result.respSuccess(list);
 	}
 	
 	// 添加
 	@RequestMapping(value = "/user/relatedLinks/add", method = RequestMethod.GET)
+	@ResponseBody
 	public Result<Object> addRelatedLinks(HttpServletRequest request, @Valid AddRelatedLinksReq req) {
 		userService.addRelatedLink(req);
 		return Result.respSuccess();
@@ -94,12 +102,14 @@ public class UserController extends BasicController {
 	
 	// 删除
 	@RequestMapping(value = "/user/relatedLinks/delete", method = RequestMethod.GET)
+	@ResponseBody
 	public Result<Object> delRelatedLinks(HttpServletRequest request, @Valid DelRelatedLinksReq req) {
 		userService.delRelatedLink(req);
 		return Result.respSuccess();
 	}
 	
 	@RequestMapping(value = "/user/relatedLinks/move", method = RequestMethod.GET)
+	@ResponseBody
 	public Result<Object> moveRelatedLinks(HttpServletRequest request, @Valid MoveRelatedLinksReq req) {
 		userService.moveRelatedLinks(req);
 		return Result.respSuccess();

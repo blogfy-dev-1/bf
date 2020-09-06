@@ -23,7 +23,8 @@ public class IdUtils {
 		}
 		return String.valueOf(arr);
 	}
-	
+
+	// 用户ID，8位数字。第一位不是9
 	public static int newRandomUserId() {
 		int id;
 		do {
@@ -31,7 +32,8 @@ public class IdUtils {
 		} while ("9".equals(String.valueOf(id).substring(0, 1)));
 		return id;
 	}
-	
+
+	// 组织ID，8位数字，第一位必须是9
 	public static int newRandomGroupId() {
 		int id;
 		do {
@@ -39,7 +41,8 @@ public class IdUtils {
 		} while (!"9".equals(String.valueOf(id).substring(0, 1)));
 		return id;
 	}
-	
+
+	// 文章ID，8位数字。
 	public static int newRandomPostId() {
 		return newRandomInt(POST_ID_LENGTH);
 	}

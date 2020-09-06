@@ -3,7 +3,7 @@
 <mapper namespace="net.blogfy.mapper.UserGithubInfoMapper" >
 
     <select id="getGithubInfoByGithubId" resultType="net.blogfy.entity.UserGithubInfo">
-        select * from t_user_github_info where github_id = #{githubId}
+        select * from t_user_github_info where id = #{githubId}
     </select>
 
 

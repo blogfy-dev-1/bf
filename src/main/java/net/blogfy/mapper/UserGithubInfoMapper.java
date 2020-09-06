@@ -7,5 +7,5 @@ import net.blogfy.entity.UserGithubInfo;
 
 public interface UserGithubInfoMapper extends BaseMapper<UserGithubInfo> {
 	
-	UserGithubInfo getGithubInfoByGithubId(@Param("githubId") String githubId);
+	UserGithubInfo getGithubInfoByGithubId(@Param("githubId") Integer githubId);
 }
